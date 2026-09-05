@@ -1,24 +1,37 @@
 {
-    "printWidth": 100,
+    "printWidth": 80,
     "tabWidth": 2,
     "useTabs": false,
     "bracketSpacing": true,
+    "arrowParens": "avoid",
     "trailingComma": "all",
+    "bracketSameLine": true,
     "htmlWhitespaceSensitivity": "ignore",
     "overrides": [
-    {
-      "files": ["./.prettierrc"],
-      "options": {
-        "parser": "json"
-      }
-    },
-    {
-      "files": ["*.html"],
-    "options": {
-        "parser": "angular"
-      }
-    }
-  ],
-	"tailwindFunctions": ["hlm", "cva", "classes"],
-	"plugins": ["prettier-plugin-organize-imports", "prettier-plugin-tailwindcss"]
+        {
+            "files": [
+                "./.prettierrc"
+            ],
+            "options": {
+                "parser": "json"
+            }
+        },
+        {
+            "files": [
+                "*.html"
+            ],
+            "options": {
+                "parser": "angular"
+            }
+        }
+    ],
+    "tailwindFunctions": [
+        "hlm",
+        "cva",
+        "classes"
+    ],
+    "plugins": [
+        "prettier-plugin-organize-imports",
+        "prettier-plugin-tailwindcss"
+    ]
 }

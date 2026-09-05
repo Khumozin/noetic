@@ -1,0 +1,32 @@
+name: Lint, Build & Test on Pull Request
+
+on:
+  pull_request:
+    branches:
+      - main
+      - staging
+jobs:
+  commitlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: wagoid/commitlint-github-action@v6
+
+  eslint:
+    uses: khumozin/workflow-templates/.github/workflows/angular-lint-app.yml@1.10.0
+    with:
+      node_version: "['22.x']"
+
+  angular:
+    needs: [eslint]
+    uses: khumozin/workflow-templates/.github/workflows/angular-build-app.yml@1.10.0
+    with:
+      node_version: "['22.x']"
+
+  vitest:
+    needs: [angular]
+    uses: khumozin/workflow-templates/.github/workflows/angular-vitest-app.yml@1.10.0
+    with:
+      node_version: "['22.x']"

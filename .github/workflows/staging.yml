@@ -1,0 +1,17 @@
+name: Build, Test & Release on Push (Staging)
+
+on:
+  push:
+    branches:
+      - staging
+jobs:
+  angular:
+    uses: khumozin/workflow-templates/.github/workflows/angular-build-app.yml@1.10.0
+    with:
+      node_version: "['22.x']"
+
+  vitest:
+    needs: [angular]
+    uses: khumozin/workflow-templates/.github/workflows/angular-vitest-app.yml@1.10.0
+    with:
+      node_version: "['22.x']"
