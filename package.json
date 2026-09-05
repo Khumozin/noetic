@@ -7,6 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "test:coverage": "ng test --coverage --coverage-include='src/app/**/*.ts' --coverage-exclude='libs/**' --coverage-exclude='**/*.spec.ts'",
     "lint": "ng lint",
     "prepare": "husky",
     "commit": "git-cz"
@@ -86,6 +87,7 @@
     "@semantic-release/release-notes-generator": "^14.0.1",
     "@spartan-ng/cli": "^1.4.1",
     "@tailwindcss/postcss": "^4.1.12",
+    "@vitest/coverage-v8": "^4.1.11",
     "angular-eslint": "22.2.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^10.9.0",
