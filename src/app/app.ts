@@ -1,11 +1,13 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { HlmButtonImports } from '@neotic/helm/button';
 
 @Component({
-  imports: [RouterOutlet],
+  imports: [HlmButtonImports],
   selector: 'app-root',
-  styleUrl: './app.css',
-  templateUrl: './app.html',
+  styles: ``,
+  template: `
+    <button hlmBtn>Noetic</button>
+  `,
 })
 export class App {
   protected readonly title = signal('noetic');

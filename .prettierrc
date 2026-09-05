@@ -1,12 +1,24 @@
 {
-  "printWidth": 100,
-  "singleQuote": true,
-  "overrides": [
+    "printWidth": 100,
+    "tabWidth": 2,
+    "useTabs": false,
+    "bracketSpacing": true,
+    "trailingComma": "all",
+    "htmlWhitespaceSensitivity": "ignore",
+    "overrides": [
     {
-      "files": "*.html",
+      "files": ["./.prettierrc"],
       "options": {
+        "parser": "json"
+      }
+    },
+    {
+      "files": ["*.html"],
+    "options": {
         "parser": "angular"
       }
     }
-  ]
+  ],
+	"tailwindFunctions": ["hlm", "cva", "classes"],
+	"plugins": ["prettier-plugin-organize-imports", "prettier-plugin-tailwindcss"]
 }

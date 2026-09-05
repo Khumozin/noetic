@@ -1,0 +1,16 @@
+# Add files here to ignore them from prettier formatting
+/dist
+/coverage
+/libs
+.angular
+.prettierignore
+.vercel
+/tmp
+/node_modules
+
+/.nx/cache
+
+/.nx/workspace-data
+
+apps/ui-storybook/.storybook/tailwind.css
+.nx/self-healing
