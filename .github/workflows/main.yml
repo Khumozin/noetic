@@ -18,8 +18,10 @@ jobs:
 
   semantic-release:
     needs: [vitest]
-    uses: khumozin/workflow-templates/.github/workflows/nodejs-semantic-release.yml@1.10.1
+    uses: khumozin/workflow-templates/.github/workflows/nodejs-semantic-release.yml@1.11.0
     with:
       node_version: "24.x"
+    secrets:
+      release_token: ${{ secrets.RELEASE_TOKEN }}
     permissions:
       contents: write
