@@ -150,20 +150,49 @@ git push origin staging
 
 ## Branch protection rules (configure in GitHub repo settings)
 
-**`main`**
+Repo → **Settings → Branches → Branch protection rules → Add rule** (or **Rulesets** on newer GitHub UI). Create one rule per branch below.
 
-- Require pull request before merging
-- Require status checks to pass: `eslint`, `angular`, `vitest`, `commitlint`
-- Require branches to be up to date before merging
-- Restrict "Squash and merge" — allow only "Create a merge commit" and "Rebase and merge" (prevents accidental history-flattening on the `staging` → `main` promotion)
-- No force pushes, no deletions
+### Repo-level merge button settings
 
-**`staging`**
+**Settings → General → Pull Requests:**
 
-- Require pull request before merging
-- Require status checks to pass: `eslint`, `angular`, `vitest`, `commitlint`
-- Squash merge allowed (preferred for feature branches)
-- No force pushes, no deletions
+- ✅ Allow squash merging
+- ✅ Allow merge commits
+- ⬜ Allow rebase merging (optional — not required by this strategy)
+- ✅ Automatically delete head branches (cleans up `feat/*`/`fix/*`/etc. after merge)
+
+This is the superset — every method must be enabled here for any of them to be selectable at all. Each branch protection rule below then narrows "Allowed merge methods" down to exactly one, per target branch.
+
+### `main`
+
+**Branch name pattern:** `main`
+
+- ✅ Require a pull request before merging
+  - ✅ Require approvals — at least `1`
+  - ✅ Dismiss stale pull request approvals when new commits are pushed
+- ✅ Require status checks to pass before merging
+  - ✅ Require branches to be up to date before merging
+  - Required checks: `commitlint`, `eslint`, `angular`, `vitest`
+- ✅ Require conversation resolution before merging
+- ✅ Do not allow bypassing the above settings (applies rules to admins too)
+- **Allowed merge methods:** `Merge` only (uncheck Squash and Rebase) — hard-blocks history-flattening on the `staging` → `main` promotion PR at the GitHub UI level, no procedural discipline needed
+- ⬜ Allow force pushes — leave unchecked
+- ⬜ Allow deletions — leave unchecked
+
+### `staging`
+
+**Branch name pattern:** `staging`
+
+- ✅ Require a pull request before merging
+  - ✅ Require approvals — at least `1`
+  - ✅ Dismiss stale pull request approvals when new commits are pushed
+- ✅ Require status checks to pass before merging
+  - ✅ Require branches to be up to date before merging
+  - Required checks: `commitlint`, `eslint`, `angular`, `vitest`
+- ✅ Require conversation resolution before merging
+- **Allowed merge methods:** `Squash` only (uncheck Merge and Rebase) — keeps one feature = one commit on `staging`
+- ⬜ Allow force pushes — leave unchecked
+- ⬜ Allow deletions — leave unchecked
 
 ## semantic-release configuration reference
 
