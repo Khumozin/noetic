@@ -15,18 +15,18 @@ jobs:
       - uses: wagoid/commitlint-github-action@v6
 
   eslint:
-    uses: khumozin/workflow-templates/.github/workflows/angular-lint-app.yml@1.10.0
+    uses: khumozin/workflow-templates/.github/workflows/angular-lint-app.yml@1.10.1
     with:
-      node_version: "['22.x']"
+      node_version: "['24.x']"
 
   angular:
     needs: [eslint]
-    uses: khumozin/workflow-templates/.github/workflows/angular-build-app.yml@1.10.0
+    uses: khumozin/workflow-templates/.github/workflows/angular-build-app.yml@1.10.1
     with:
-      node_version: "['22.x']"
+      node_version: "['24.x']"
 
   vitest:
     needs: [angular]
-    uses: khumozin/workflow-templates/.github/workflows/angular-vitest-app.yml@1.10.0
+    uses: khumozin/workflow-templates/.github/workflows/angular-vitest-app.yml@1.10.1
     with:
-      node_version: "['22.x']"
+      node_version: "['24.x']"
