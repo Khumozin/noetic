@@ -172,12 +172,18 @@ This is the superset — every method must be enabled here for any of them to be
   - ✅ Dismiss stale pull request approvals when new commits are pushed
 - ✅ Require status checks to pass before merging
   - ✅ Require branches to be up to date before merging
-  - Required checks: `commitlint`, `eslint`, `angular`, `vitest`
+  - Required checks (must match the **exact** context GitHub reports — reusable workflows report as `<caller workflow name> / <job> / <inner job> (<matrix>)`, not the bare caller job name):
+    - `Lint, Build & Test on Pull Request / commitlint (pull_request)`
+    - `Lint, Build & Test on Pull Request / eslint / lint (22.x) (pull_request)`
+    - `Lint, Build & Test on Pull Request / angular / build (22.x) (pull_request)`
+    - `Lint, Build & Test on Pull Request / vitest / unit-test (22.x) (pull_request)`
 - ✅ Require conversation resolution before merging
 - ✅ Do not allow bypassing the above settings (applies rules to admins too)
 - **Allowed merge methods:** `Merge` only (uncheck Squash and Rebase) — hard-blocks history-flattening on the `staging` → `main` promotion PR at the GitHub UI level, no procedural discipline needed
 - ⬜ Allow force pushes — leave unchecked
 - ⬜ Allow deletions — leave unchecked
+
+> `main.yml`'s `semantic-release` job pushes the version bump/tag directly to `main` after merge — this rule's "Do not allow bypassing" blocks that unless the push uses a token belonging to an actor exempted from the rule (see `semantic-release` push permissions note below `staging`).
 
 ### `staging`
 
@@ -188,11 +194,28 @@ This is the superset — every method must be enabled here for any of them to be
   - ✅ Dismiss stale pull request approvals when new commits are pushed
 - ✅ Require status checks to pass before merging
   - ✅ Require branches to be up to date before merging
-  - Required checks: `commitlint`, `eslint`, `angular`, `vitest`
+  - Required checks (must match the **exact** context GitHub reports — reusable workflows report as `<caller workflow name> / <job> / <inner job> (<matrix>)`, not the bare caller job name):
+    - `commitlint`
+    - `eslint / lint (24.x)`
+    - `angular / build (24.x)`
+    - `vitest / unit-test (24.x)`
 - ✅ Require conversation resolution before merging
 - **Allowed merge methods:** `Squash` only (uncheck Merge and Rebase) — keeps one feature = one commit on `staging`
 - ⬜ Allow force pushes — leave unchecked
 - ⬜ Allow deletions — leave unchecked
+
+> **`semantic-release` push vs branch protection — resolved via Ruleset bypass + PAT:**
+>
+> Both `main` and `staging` use **Rulesets** (Settings → Rules → Rulesets), not classic branch protection. The `semantic-release` job pushes a version-bump/`CHANGELOG.md` commit and tag directly to the protected branch after merge — this is rejected (`GH013: Repository rule violations`) by the default `GITHUB_TOKEN`, which cannot be added to a bypass list (no `GitHub Actions` entry under the ruleset's **Apps** bypass tab on this repo).
+>
+> Fix in place:
+>
+> 1. Each ruleset's **Bypass list → Roles** has `Repository admin` checked.
+> 2. A fine-grained PAT (repo-scoped to `noetic`, `Contents: Read and write`) was generated on an admin account and stored as the `RELEASE_TOKEN` repo secret.
+> 3. `khumozin/workflow-templates`'s `nodejs-semantic-release.yml` was patched (tag `1.11.0`+) to accept a `secrets.release_token` input, used for both the `actions/checkout` token (this is what the git push actually authenticates with) and the `GITHUB_TOKEN` env var passed to `npx semantic-release` (used for the GitHub Releases API call).
+> 4. `staging.yml`/`main.yml` pin `nodejs-semantic-release.yml@1.11.0` and pass `secrets: { release_token: ${{ secrets.RELEASE_TOKEN }} }` on the `semantic-release` job.
+>
+> Rotate `RELEASE_TOKEN` before it expires (fine-grained PATs have a hard expiry) — an expired token fails release pushes the same way the original bug did, just later.
 
 ## semantic-release configuration reference
 
