@@ -13,7 +13,8 @@
     "module": "preserve",
     "paths": {
       "@neotic/helm/button": ["./libs/ui/button/src/index.ts"],
-      "@neotic/helm/utils": ["./libs/ui/utils/src/index.ts"]
+      "@neotic/helm/utils": ["./libs/ui/utils/src/index.ts"],
+      "@neotic/helm/breadcrumb": ["./libs/ui/breadcrumb/src/index.ts"]
     }
   },
   "angularCompilerOptions": {
