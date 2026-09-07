@@ -13,7 +13,20 @@
     "module": "preserve",
     "paths": {
       "@neotic/helm/button": ["./libs/ui/button/src/index.ts"],
-      "@neotic/helm/utils": ["./libs/ui/utils/src/index.ts"]
+      "@neotic/helm/utils": ["./libs/ui/utils/src/index.ts"],
+      "@neotic/helm/breadcrumb": ["./libs/ui/breadcrumb/src/index.ts"],
+      "@neotic/helm/sidebar": ["./libs/ui/sidebar/src/index.ts"],
+      "@neotic/helm/input": ["./libs/ui/input/src/index.ts"],
+      "@neotic/helm/separator": ["./libs/ui/separator/src/index.ts"],
+      "@neotic/helm/sheet": ["./libs/ui/sheet/src/index.ts"],
+      "@neotic/helm/skeleton": ["./libs/ui/skeleton/src/index.ts"],
+      "@neotic/helm/tooltip": ["./libs/ui/tooltip/src/index.ts"],
+      "@neotic/helm/collapsible": ["./libs/ui/collapsible/src/index.ts"],
+      "@neotic/helm/dropdown-menu": ["./libs/ui/dropdown-menu/src/index.ts"],
+      "@neotic/helm/avatar": ["./libs/ui/avatar/src/index.ts"],
+      "@neotic/helm/sonner": ["./libs/ui/sonner/src/index.ts"],
+      "@neotic/helm/toggle-group": ["./libs/ui/toggle-group/src/index.ts"],
+      "@neotic/helm/toggle": ["./libs/ui/toggle/src/index.ts"]
     }
   },
   "angularCompilerOptions": {
