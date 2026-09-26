@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { HlmButtonImports } from '@neotic/helm/button';
 import { HlmSidebarImports } from '@neotic/helm/sidebar';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
@@ -13,7 +14,15 @@ import { Breadcrumb } from '../breadcrumb/breadcrumb';
 import { Sidebar } from '../sidebar/sidebar';
 
 @Component({
-  imports: [Breadcrumb, Sidebar, NgIcon, RouterOutlet, HlmSidebarImports],
+  imports: [
+    Breadcrumb,
+    Sidebar,
+    NgIcon,
+    RouterOutlet,
+    HlmSidebarImports,
+    HlmSidebarImports,
+    HlmButtonImports,
+  ],
   providers: [
     provideIcons({
       lucideChevronDown,
@@ -40,7 +49,7 @@ import { Sidebar } from '../sidebar/sidebar';
 
           <div class="flex items-center gap-2 px-4">
             <button hlmBtn variant="outline" size="xs" class="gap-1.5">
-              <ng-icon size="xs" name="lucidePlay" />
+              <ng-icon name="lucidePlay" />
               Preview
             </button>
           </div>
@@ -48,12 +57,9 @@ import { Sidebar } from '../sidebar/sidebar';
 
         <div class="flex-1 overflow-hidden">
           <main class="bg-background flex h-full" cdkDropListGroup>
-            <!-- <app-builder-left-panel />
-                <app-builder-canvas class="flex-1" />
-                <app-builder-right-panel /> -->
+            <router-outlet />
           </main>
         </div>
-        <!-- <router-outlet class="hidden" /> -->
       </main>
     </div>
   `,
