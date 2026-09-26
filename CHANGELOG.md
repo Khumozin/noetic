@@ -1,3 +1,9 @@
+# [1.1.0-staging.2](https://github.com/Khumozin/noetic/compare/v1.1.0-staging.1...v1.1.0-staging.2) (2026-09-26)
+
+### Features
+
+- **pages:** implement pages service to manage app pages ([#9](https://github.com/Khumozin/noetic/issues/9)) ([8dfe8e8](https://github.com/Khumozin/noetic/commit/8dfe8e84701d2b5c90340bc193978c6fe6926ea6))
+
 # [1.1.0-staging.1](https://github.com/Khumozin/noetic/compare/v1.0.0...v1.1.0-staging.1) (2026-09-26)
 
 ### Features
