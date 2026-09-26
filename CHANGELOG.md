@@ -1,3 +1,9 @@
+# [1.1.0-staging.3](https://github.com/Khumozin/noetic/compare/v1.1.0-staging.2...v1.1.0-staging.3) (2026-09-26)
+
+### Features
+
+- **fields:** implement field-types service to manage definitions and settings ([#10](https://github.com/Khumozin/noetic/issues/10)) ([b4f4279](https://github.com/Khumozin/noetic/commit/b4f4279240108b118026ea1a97ced65f2dfeb38c))
+
 # [1.1.0-staging.2](https://github.com/Khumozin/noetic/compare/v1.1.0-staging.1...v1.1.0-staging.2) (2026-09-26)
 
 ### Features
