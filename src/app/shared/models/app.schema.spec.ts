@@ -1,4 +1,5 @@
 import { appMetadataSchema, storedAppsSchema } from './app.schema';
+import { appPageSchema } from './page.schema';
 
 const valid = {
   name: 'Shop',
@@ -93,6 +94,57 @@ describe('storedAppsSchema', () => {
     expect(result[0].metadata.description).toBe('');
   });
 
+  it('should default pages for older saves', () => {
+    const result = storedAppsSchema.parse([
+      {
+        id: 'a',
+        homePageId: null,
+        metadata: { name: 'A', slug: 'a', prefix: 'app', version: '1.0.0' },
+      },
+    ]);
+
+    expect(result[0].pages).toEqual([]);
+  });
+
+  it('should keep pages, with title optional', () => {
+    const result = storedAppsSchema.parse([
+      {
+        ...stored({ name: 'A', slug: 'a', prefix: 'app', version: '1.0.0' })[0],
+        pages: [
+          { id: 'p1', name: 'One', slug: 'one', type: 'form' },
+          { id: 'p2', name: 'Two', slug: 'two', type: 'table', title: 'T' },
+        ],
+      },
+    ]);
+
+    expect(result[0].pages).toEqual([
+      { id: 'p1', name: 'One', slug: 'one', type: 'form' },
+      { id: 'p2', name: 'Two', slug: 'two', type: 'table', title: 'T' },
+    ]);
+  });
+
+  it('should keep a page with an unknown type as custom', () => {
+    const result = storedAppsSchema.parse([
+      {
+        ...stored({ name: 'A', slug: 'a', prefix: 'app', version: '1.0.0' })[0],
+        pages: [{ id: 'p1', name: 'One', slug: 'one', type: 'chart' }],
+      },
+    ]);
+
+    expect(result[0].pages[0].type).toBe('custom');
+  });
+
+  it('should reject pages that are not an array', () => {
+    const result = storedAppsSchema.safeParse([
+      {
+        ...stored({ name: 'A', slug: 'a', prefix: 'app', version: '1.0.0' })[0],
+        pages: 'nope',
+      },
+    ]);
+
+    expect(result.success).toBe(false);
+  });
+
   it('should not reject values the editing rules would refuse', () => {
     const result = storedAppsSchema.safeParse(
       stored({
@@ -113,4 +165,22 @@ describe('storedAppsSchema', () => {
       expect(storedAppsSchema.safeParse(value).success).toBe(false);
     },
   );
+});
+
+describe('appPageSchema', () => {
+  const page = { id: 'p', name: 'Page', slug: 'page', type: 'form' };
+
+  it('should accept a page without a title', () => {
+    expect(appPageSchema.safeParse(page).success).toBe(true);
+  });
+
+  it.each(['form', 'table', 'custom'])('should accept type %s', type => {
+    expect(appPageSchema.safeParse({ ...page, type }).success).toBe(true);
+  });
+
+  it('should reject an unknown type', () => {
+    expect(appPageSchema.safeParse({ ...page, type: 'chart' }).success).toBe(
+      false,
+    );
+  });
 });

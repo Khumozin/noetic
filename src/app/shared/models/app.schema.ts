@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { AppPage, storedPageSchema } from './page.schema';
 
 const requiredText = (message: string) => z.string().trim().min(1, message);
 
@@ -40,6 +41,7 @@ export interface AngularApp {
   id: string;
   homePageId: string | null;
   metadata: ApplicationMetadata;
+  pages: AppPage[];
 }
 
 /**
@@ -59,6 +61,7 @@ export const storedAppsSchema = z
         prefix: z.string(),
         version: z.string(),
       }),
+      pages: z.array(storedPageSchema).default([]),
     }),
   )
   .min(1);
