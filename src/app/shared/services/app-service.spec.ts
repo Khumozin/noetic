@@ -9,6 +9,7 @@ function makeApp(id: string, name = id): AngularApp {
   return {
     id,
     homePageId: `${id}-home`,
+    pages: [],
     metadata: {
       name,
       slug: name,
@@ -56,6 +57,10 @@ describe('AppService', () => {
   });
 
   describe('initial state', () => {
+    it('should seed the default app with no pages', () => {
+      expect(service.apps()[0].pages).toEqual([]);
+    });
+
     it('should seed a default app when storage is empty', () => {
       expect(service.apps()).toHaveLength(1);
       expect(service.apps()[0].metadata).toEqual({
@@ -103,6 +108,26 @@ describe('AppService', () => {
       service = createService();
 
       expect(service.apps()[0].metadata.slug).toBe('Old App!');
+    });
+
+    it('should default pages for apps saved without any', () => {
+      const legacy = makeApp('a') as unknown as Record<string, unknown>;
+      delete legacy['pages'];
+      localStorage.setItem(APPS_KEY, JSON.stringify([legacy]));
+
+      service = createService();
+
+      expect(service.apps()[0].pages).toEqual([]);
+    });
+
+    it('should load stored pages', () => {
+      const app = makeApp('a');
+      app.pages = [{ id: 'p1', name: 'Home', slug: 'home', type: 'form' }];
+      localStorage.setItem(APPS_KEY, JSON.stringify([app]));
+
+      service = createService();
+
+      expect(service.apps()[0].pages).toEqual(app.pages);
     });
 
     it('should load active app id from storage', () => {
@@ -332,6 +357,26 @@ describe('AppService', () => {
         TestBed.tick();
       }).not.toThrow();
       expect(service.apps()).toHaveLength(2);
+    });
+  });
+
+  describe('updateActiveApp', () => {
+    it('should apply fn to the active app only', () => {
+      const first = service.apps()[0];
+      service.createApp('Two');
+
+      service.updateActiveApp(app => ({ ...app, homePageId: 'changed' }));
+
+      expect(service.activeApp().homePageId).toBe('changed');
+      expect(service.apps()[0]).toEqual(first);
+    });
+
+    it('should not change other fields', () => {
+      const before = service.activeApp();
+
+      service.updateActiveApp(app => ({ ...app, homePageId: 'x' }));
+
+      expect(service.activeApp()).toEqual({ ...before, homePageId: 'x' });
     });
   });
 

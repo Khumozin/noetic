@@ -30,6 +30,7 @@ function createDefaultApp(name = 'My Apps'): AngularApp {
       prefix: 'app',
       version: '1.0.0',
     },
+    pages: [],
   } satisfies AngularApp;
 }
 
@@ -96,13 +97,13 @@ export class AppService {
   }
 
   updateActiveAppMetadata(data: Partial<ApplicationMetadata>): void {
-    this._updateActiveApp(app => ({
+    this.updateActiveApp(app => ({
       ...app,
       metadata: { ...app.metadata, ...data },
     }));
   }
 
-  private _updateActiveApp(fn: (app: AngularApp) => AngularApp): void {
+  updateActiveApp(fn: (app: AngularApp) => AngularApp): void {
     const id = this._activeAppId();
     this._apps.update(apps => apps.map(a => (a.id === id ? fn(a) : a)));
   }
