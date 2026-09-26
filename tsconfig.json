@@ -26,7 +26,12 @@
       "@neotic/helm/avatar": ["./libs/ui/avatar/src/index.ts"],
       "@neotic/helm/sonner": ["./libs/ui/sonner/src/index.ts"],
       "@neotic/helm/toggle-group": ["./libs/ui/toggle-group/src/index.ts"],
-      "@neotic/helm/toggle": ["./libs/ui/toggle/src/index.ts"]
+      "@neotic/helm/toggle": ["./libs/ui/toggle/src/index.ts"],
+      "@neotic/helm/item": ["./libs/ui/item/src/index.ts"],
+      "@neotic/helm/field": ["./libs/ui/field/src/index.ts"],
+      "@neotic/helm/label": ["./libs/ui/label/src/index.ts"],
+      "@neotic/helm/textarea": ["./libs/ui/textarea/src/index.ts"],
+      "@neotic/helm/select": ["./libs/ui/select/src/index.ts"]
     }
   },
   "angularCompilerOptions": {

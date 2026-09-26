@@ -32,6 +32,12 @@ const data = {
   ],
   navMain: [
     {
+      title: 'Apps',
+      url: '/apps',
+      icon: 'lucideLayoutGrid',
+      items: [],
+    },
+    {
       title: 'Pages',
       url: '/pages',
       icon: 'lucideLayoutTemplate',
