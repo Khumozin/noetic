@@ -35,6 +35,12 @@ describe('Sidebar', () => {
 
     expect(navMain.items()).toEqual([
       {
+        title: 'Apps',
+        url: '/apps',
+        icon: 'lucideLayoutGrid',
+        items: [],
+      },
+      {
         title: 'Pages',
         url: '/pages',
         icon: 'lucideLayoutTemplate',

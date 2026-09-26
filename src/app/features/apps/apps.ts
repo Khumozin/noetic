@@ -1,11 +1,15 @@
 import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
-  imports: [],
+  imports: [RouterOutlet],
   selector: 'app-apps',
   styles: ``,
   template: `
-    <p>apps works!</p>
+    <router-outlet />
   `,
+  host: {
+    class: 'w-full',
+  },
 })
-export class Apps {}
+export default class Apps {}

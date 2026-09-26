@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Apps } from './apps';
+import Apps from './apps';
 
 describe('Apps', () => {
   let component: Apps;
@@ -19,8 +19,7 @@ describe('Apps', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render placeholder', () => {
-    const p: HTMLElement | null = fixture.nativeElement.querySelector('p');
-    expect(p?.textContent).toContain('apps works!');
+  it('should render router outlet', () => {
+    expect(fixture.nativeElement.querySelector('router-outlet')).toBeTruthy();
   });
 });

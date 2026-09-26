@@ -26,7 +26,8 @@
       "@neotic/helm/avatar": ["./libs/ui/avatar/src/index.ts"],
       "@neotic/helm/sonner": ["./libs/ui/sonner/src/index.ts"],
       "@neotic/helm/toggle-group": ["./libs/ui/toggle-group/src/index.ts"],
-      "@neotic/helm/toggle": ["./libs/ui/toggle/src/index.ts"]
+      "@neotic/helm/toggle": ["./libs/ui/toggle/src/index.ts"],
+      "@neotic/helm/item": ["./libs/ui/item/src/index.ts"]
     }
   },
   "angularCompilerOptions": {
