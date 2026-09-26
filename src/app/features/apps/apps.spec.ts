@@ -18,4 +18,9 @@ describe('Apps', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render placeholder', () => {
+    const p: HTMLElement | null = fixture.nativeElement.querySelector('p');
+    expect(p?.textContent).toContain('apps works!');
+  });
 });
