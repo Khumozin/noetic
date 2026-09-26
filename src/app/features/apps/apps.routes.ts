@@ -9,6 +9,11 @@ const APPS_ROUTES: Routes = [
         path: '',
         loadComponent: () => import('./features/apps-list/apps-list'),
       },
+      {
+        path: 'metadata/:id',
+        loadComponent: () => import('./features/app-metadata/app-metadata'),
+        outlet: 'content',
+      },
     ],
   },
 ];

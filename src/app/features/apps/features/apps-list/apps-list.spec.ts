@@ -1,7 +1,12 @@
+import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter, Router } from '@angular/router';
 import { vi } from 'vitest';
 import { AppService } from '../../../../shared/services/app-service';
 import AppsList from './apps-list';
+
+@Component({ template: '' })
+class MetadataStub {}
 
 describe('AppsList', () => {
   let component: AppsList;
@@ -16,6 +21,11 @@ describe('AppsList', () => {
     });
     await TestBed.configureTestingModule({
       imports: [AppsList],
+      providers: [
+        provideRouter([
+          { path: 'metadata/:id', outlet: 'content', component: MetadataStub },
+        ]),
+      ],
     }).compileComponents();
 
     service = TestBed.inject(AppService);
@@ -62,6 +72,26 @@ describe('AppsList', () => {
     expect(rows()[0].getAttribute('data-slot')).toBe('item');
   });
 
+  it('should show app count in header', async () => {
+    const title = el.querySelector('h2')!;
+    expect(title.textContent).toContain('Apps');
+    expect(title.textContent).toContain('1');
+
+    service.createApp('Two');
+    await fixture.whenStable();
+
+    expect(title.textContent).toContain('2');
+  });
+
+  it('should use quiet icon-only create button with no visible text', () => {
+    const create = el.querySelector<HTMLButtonElement>(
+      'button[aria-label="Create app"]',
+    )!;
+
+    expect(create.textContent?.trim()).toBe('');
+    expect(create.querySelector('ng-icon')).toBeTruthy();
+  });
+
   it('should give icon-only buttons an accessible name', async () => {
     service.createApp('Two');
     await fixture.whenStable();
@@ -99,6 +129,16 @@ describe('AppsList', () => {
     selectButtons()[0].click();
 
     expect(service.activeApp().id).toBe(first);
+  });
+
+  it('should open metadata in content outlet on click', async () => {
+    const router = TestBed.inject(Router);
+    const id = service.apps()[0].id;
+
+    selectButtons()[0].click();
+    await fixture.whenStable();
+
+    expect(router.url).toContain(`(content:metadata/${id})`);
   });
 
   it('should delete app on delete click', async () => {

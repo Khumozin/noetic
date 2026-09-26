@@ -1,17 +1,20 @@
 import { computed, Service } from '@angular/core';
+import {
+  AngularApp,
+  ApplicationMetadata,
+  storedAppsSchema,
+} from '../models/app.schema';
 import { persistedSignal } from '../utils/persisted-signal';
 
-export interface AngularApp {
-  id: string;
-  homePageId: string | null;
-  metadata: AppMetadata;
-}
+export type { AngularApp, ApplicationMetadata };
 
-export interface AppMetadata {
-  name: string;
-  slug: string;
-  prefix: string;
-  version: string;
+function slugify(name: string): string {
+  return (
+    name
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '') || 'app'
+  );
 }
 
 function createDefaultApp(name = 'My Apps'): AngularApp {
@@ -22,22 +25,12 @@ function createDefaultApp(name = 'My Apps'): AngularApp {
     homePageId,
     metadata: {
       name,
-      slug: name.toLowerCase().replace(/\s+/g, '-'),
+      slug: slugify(name),
+      description: '',
       prefix: 'app',
       version: '1.0.0',
     },
   } satisfies AngularApp;
-}
-
-function isAngularApp(value: unknown): value is AngularApp {
-  if (typeof value !== 'object' || value === null) return false;
-  const app = value as Partial<AngularApp>;
-  return (
-    typeof app.id === 'string' &&
-    (app.homePageId === null || typeof app.homePageId === 'string') &&
-    typeof app.metadata === 'object' &&
-    app.metadata !== null
-  );
 }
 
 const APPS_STORAGE_KEY = 'noetic-apps';
@@ -47,8 +40,12 @@ const ACTIVE_APP_ID_STORAGE_KEY = 'noetic-app-active-id';
 export class AppService {
   private readonly _apps = persistedSignal<AngularApp[]>(APPS_STORAGE_KEY, {
     fallback: () => [createDefaultApp()],
-    isValid: (v): v is AngularApp[] =>
-      Array.isArray(v) && v.length > 0 && v.every(isAngularApp),
+    // null (invalid shape) fails isValid, so the default app is used instead
+    deserialize: raw => {
+      const result = storedAppsSchema.safeParse(JSON.parse(raw));
+      return result.success ? result.data : null;
+    },
+    isValid: (v): v is AngularApp[] => Array.isArray(v),
   });
 
   // stored as a plain string (not JSON) for backwards compatibility
@@ -98,7 +95,7 @@ export class AppService {
     }
   }
 
-  updateActiveAppMetadata(data: Partial<AppMetadata>): void {
+  updateActiveAppMetadata(data: Partial<ApplicationMetadata>): void {
     this._updateActiveApp(app => ({
       ...app,
       metadata: { ...app.metadata, ...data },

@@ -9,7 +9,13 @@ function makeApp(id: string, name = id): AngularApp {
   return {
     id,
     homePageId: `${id}-home`,
-    metadata: { name, slug: name, prefix: 'app', version: '1.0.0' },
+    metadata: {
+      name,
+      slug: name,
+      description: '',
+      prefix: 'app',
+      version: '1.0.0',
+    },
   };
 }
 
@@ -55,6 +61,7 @@ describe('AppService', () => {
       expect(service.apps()[0].metadata).toEqual({
         name: 'My Apps',
         slug: 'my-apps',
+        description: '',
         prefix: 'app',
         version: '1.0.0',
       });
@@ -74,6 +81,28 @@ describe('AppService', () => {
       service = createService();
 
       expect(service.apps().map(a => a.id)).toEqual(['a', 'b']);
+    });
+
+    it('should default description for apps saved without one', () => {
+      const legacy = makeApp('a') as unknown as {
+        metadata: Record<string, unknown>;
+      };
+      delete legacy.metadata['description'];
+      localStorage.setItem(APPS_KEY, JSON.stringify([legacy]));
+
+      service = createService();
+
+      expect(service.apps()[0].metadata.description).toBe('');
+    });
+
+    it('should keep stored apps whose values the form would now reject', () => {
+      const app = makeApp('a', 'Old App');
+      app.metadata.slug = 'Old App!';
+      localStorage.setItem(APPS_KEY, JSON.stringify([app]));
+
+      service = createService();
+
+      expect(service.apps()[0].metadata.slug).toBe('Old App!');
     });
 
     it('should load active app id from storage', () => {
@@ -143,9 +172,21 @@ describe('AppService', () => {
       expect(service.apps()[1].metadata).toEqual({
         name: 'My Cool  App',
         slug: 'my-cool-app',
+        description: '',
         prefix: 'app',
         version: '1.0.0',
       });
+    });
+
+    it.each([
+      ['My App!', 'my-app'],
+      ['  Spaced   Out  ', 'spaced-out'],
+      ['Café 2', 'caf-2'],
+      ['!!!', 'app'],
+    ])('should slugify %j as %j', (name, slug) => {
+      service.createApp(name);
+
+      expect(service.apps()[1].metadata.slug).toBe(slug);
     });
 
     it('should set a home page id', () => {
@@ -301,6 +342,7 @@ describe('AppService', () => {
       expect(service.activeApp().metadata).toEqual({
         name: 'Renamed',
         slug: 'my-apps',
+        description: '',
         prefix: 'app',
         version: '2.0.0',
       });

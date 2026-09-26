@@ -1,28 +1,43 @@
 import { Component, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { HlmButtonImports } from '@neotic/helm/button';
 import { HlmItemImports } from '@neotic/helm/item';
+import { HlmTooltipImports } from '@neotic/helm/tooltip';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideLayoutGrid, lucidePlus, lucideTrash2 } from '@ng-icons/lucide';
 import { AppService } from '../../../../shared/services/app-service';
 
 @Component({
-  imports: [NgIcon, HlmButtonImports, HlmItemImports],
+  imports: [
+    NgIcon,
+    HlmButtonImports,
+    HlmItemImports,
+    HlmTooltipImports,
+    RouterLink,
+  ],
   providers: [provideIcons({ lucideLayoutGrid, lucidePlus, lucideTrash2 })],
   selector: 'app-apps-list',
   styles: ``,
   template: `
     <div class="flex h-full w-full flex-col">
       <div
-        class="border-border flex items-center justify-between border-b px-3 py-2">
-        <h2 class="text-muted-foreground text-xs font-semibold">Apps</h2>
+        class="border-border flex h-12 shrink-0 items-center justify-between border-b px-3">
+        <h2
+          class="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
+          Apps
+          <span class="text-muted-foreground/70 ms-1 font-normal">
+            {{ _appService.apps().length }}
+          </span>
+        </h2>
         <button
           hlmBtn
           size="icon"
           variant="ghost"
-          class="size-6"
+          class="size-7"
+          hlmTooltip="Create app"
           aria-label="Create app"
           (click)="_appService.createApp()">
-          <ng-icon hlm name="lucidePlus" aria-hidden="true" class="text-sm" />
+          <ng-icon hlm name="lucidePlus" aria-hidden="true" class="text-base" />
         </button>
       </div>
 
@@ -47,6 +62,10 @@ import { AppService } from '../../../../shared/services/app-service';
                 type="button"
                 class="focus-visible:ring-ring min-w-0 cursor-pointer rounded-md text-left outline-none focus-visible:ring-2"
                 [attr.aria-current]="isActive(app.id) ? 'true' : null"
+                [routerLink]="[
+                  './',
+                  { outlets: { content: ['metadata', app.id] } },
+                ]"
                 (click)="_appService.selectApp(app.id)">
                 <span hlmItemTitle class="truncate">
                   {{ app.metadata.name }}
