@@ -1,3 +1,9 @@
+# [1.1.0-staging.5](https://github.com/Khumozin/noetic/compare/v1.1.0-staging.4...v1.1.0-staging.5) (2026-11-24)
+
+### Features
+
+- **fields:** implement field componentd, upgrade spartan/ui ([#12](https://github.com/Khumozin/noetic/issues/12)) ([3d692a9](https://github.com/Khumozin/noetic/commit/3d692a900547052ede0df2584a59adaba9be635f))
+
 # [1.1.0-staging.4](https://github.com/Khumozin/noetic/compare/v1.1.0-staging.3...v1.1.0-staging.4) (2026-11-24)
 
 ### Features
