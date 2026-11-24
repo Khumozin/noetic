@@ -4,6 +4,7 @@ import { classes } from '@neotic/helm/utils';
 
 @Directive({
 	selector: '[hlmBreadcrumbLink]',
+	exportAs: 'hlmBreadcrumbLink',
 	hostDirectives: [
 		{
 			directive: RouterLink,

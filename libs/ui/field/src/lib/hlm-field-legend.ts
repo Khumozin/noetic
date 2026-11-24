@@ -3,6 +3,7 @@ import { classes } from '@neotic/helm/utils';
 
 @Directive({
 	selector: 'legend[hlmFieldLegend]',
+	exportAs: 'hlmFieldLegend',
 	host: {
 		'data-slot': 'field-legend',
 		'[attr.data-variant]': 'variant()',

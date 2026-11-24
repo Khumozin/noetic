@@ -2,13 +2,18 @@ import { FieldTypeDefinition } from '../models/field';
 import { ButtonField } from '../ui/button-field/button-field';
 import { CheckboxField } from '../ui/checkbox-field/checkbox-field';
 import { DatePickerField } from '../ui/date-picker-field/date-picker-field';
+import { HeadingField } from '../ui/heading-field/heading-field';
+import { InlineCodeField } from '../ui/inline-code-field/inline-code-field';
+import { ListField } from '../ui/list-field/list-field';
 import { OtpField } from '../ui/otp-field/otp-field';
+import { ParagraphField } from '../ui/paragraph-field/paragraph-field';
 import { RadioGroupField } from '../ui/radio-group-field/radio-group-field';
 import { SelectField } from '../ui/select-field/select-field';
 import { SwitchField } from '../ui/switch-field/switch-field';
 import { TextAreaField } from '../ui/text-area-field/text-area-field';
 import { TextBlockField } from '../ui/text-block-field/text-block-field';
 import { TextField } from '../ui/text-field/text-field';
+import { TypographyField } from '../ui/typography-field/typography-field';
 import {
   APPEARANCE_SETTINGS,
   BUTTON_SETTINGS,
@@ -72,6 +77,148 @@ export const TEXT_BLOCK_FIELD_DEFINITION: FieldTypeDefinition = {
     ...APPEARANCE_SETTINGS,
   ],
   component: TextBlockField,
+};
+
+export const HEADING_FIELD_DEFINITION: FieldTypeDefinition = {
+  type: 'heading',
+  label: 'Heading',
+  description: 'A section heading (h1-h4)',
+  icon: 'lucideHeading',
+  defaultConfig: {
+    label: 'Heading',
+    content: 'Section title',
+    typographyVariant: 'h2',
+    required: false,
+    columnSpan: 'col-span-12',
+    columnStart: 'col-start-auto',
+    visible: true,
+  },
+  settingsConfig: [
+    {
+      label: 'Content',
+      key: 'input',
+      settings: [
+        {
+          type: 'select',
+          key: 'typographyVariant',
+          label: 'Level',
+          options: [
+            { value: 'h1', label: 'h1' },
+            { value: 'h2', label: 'h2' },
+            { value: 'h3', label: 'h3' },
+            { value: 'h4', label: 'h4' },
+          ],
+        },
+        { type: 'text', key: 'content', label: 'Text' },
+      ],
+    },
+    ...APPEARANCE_SETTINGS,
+  ],
+  component: HeadingField,
+};
+
+export const PARAGRAPH_FIELD_DEFINITION: FieldTypeDefinition = {
+  type: 'paragraph',
+  label: 'Paragraph',
+  description: 'A block of body text',
+  icon: 'lucidePilcrow',
+  defaultConfig: {
+    label: 'Paragraph',
+    content: 'Your text here',
+    required: false,
+    columnSpan: 'col-span-12',
+    columnStart: 'col-start-auto',
+    visible: true,
+  },
+  settingsConfig: [
+    {
+      label: 'Content',
+      key: 'input',
+      settings: [
+        {
+          type: 'select',
+          key: 'typographyVariant',
+          label: 'Style',
+          options: [
+            { value: 'p', label: 'Paragraph' },
+            { value: 'lead', label: 'Lead' },
+            { value: 'muted', label: 'Muted' },
+          ],
+        },
+        { type: 'textarea', key: 'content', label: 'Text' },
+      ],
+    },
+    ...APPEARANCE_SETTINGS,
+  ],
+  component: ParagraphField,
+};
+
+export const LIST_FIELD_DEFINITION: FieldTypeDefinition = {
+  type: 'list',
+  label: 'List',
+  description: 'A bullet or numbered list',
+  icon: 'lucideList',
+  defaultConfig: {
+    label: 'List',
+    required: false,
+    columnSpan: 'col-span-12',
+    columnStart: 'col-start-auto',
+    visible: true,
+    options: [
+      { value: 'item1', label: 'First item' },
+      { value: 'item2', label: 'Second item' },
+    ],
+  },
+  settingsConfig: [
+    ...DATA_OPTIONS_SETTINGS,
+    {
+      label: 'Content',
+      key: 'input',
+      settings: [
+        {
+          type: 'select',
+          key: 'inputType',
+          label: 'Style',
+          options: [
+            { value: 'bullet', label: 'Bullet' },
+            { value: 'ordered', label: 'Numbered' },
+          ],
+        },
+      ],
+    },
+    ...APPEARANCE_SETTINGS,
+  ],
+  component: ListField,
+};
+
+export const INLINE_CODE_FIELD_DEFINITION: FieldTypeDefinition = {
+  type: 'inline-code',
+  label: 'Inline Code',
+  description: 'A single inline code snippet',
+  icon: 'lucideCode',
+  defaultConfig: {
+    label: 'Inline Code',
+    content: 'npm install',
+    required: false,
+    columnSpan: 'col-span-12',
+    columnStart: 'col-start-auto',
+    visible: true,
+  },
+  settingsConfig: [
+    {
+      label: 'Content',
+      key: 'input',
+      settings: [{ type: 'text', key: 'content', label: 'Code' }],
+    },
+    ...APPEARANCE_SETTINGS,
+  ],
+  component: InlineCodeField,
+};
+
+export const TYPOGRAPHY_FIELD_DEFINITION: FieldTypeDefinition = {
+  ...TEXT_BLOCK_FIELD_DEFINITION,
+  type: 'typography',
+  component: TypographyField,
 };
 
 export const TEXT_FIELD_DEFINITION: FieldTypeDefinition = {

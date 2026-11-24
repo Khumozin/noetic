@@ -4,6 +4,7 @@ import { classes } from '@neotic/helm/utils';
 
 @Directive({
 	selector: '[hlmSelectGroup],hlm-select-group',
+	exportAs: 'hlmSelectGroup',
 	hostDirectives: [{ directive: BrnSelectGroup }],
 	host: { 'data-slot': 'select-group' },
 })

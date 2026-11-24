@@ -2,10 +2,11 @@ import { Directive, computed, effect, input, untracked } from '@angular/core';
 import { injectCustomClassSettable } from '@spartan-ng/brain/core';
 import { BrnSheetOverlay } from '@spartan-ng/brain/sheet';
 import { hlm } from '@neotic/helm/utils';
-import type { ClassValue } from 'clsx';
+import type { ClassValue } from 'cn';
 
 @Directive({
 	selector: '[hlmSheetOverlay],hlm-sheet-overlay',
+	exportAs: 'hlmSheetOverlay',
 	hostDirectives: [BrnSheetOverlay],
 })
 export class HlmSheetOverlay {

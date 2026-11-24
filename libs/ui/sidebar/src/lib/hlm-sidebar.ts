@@ -2,12 +2,13 @@ import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, effect, inject, input } from '@angular/core';
 import { HlmSheetImports } from '@neotic/helm/sheet';
 import { classes, hlm } from '@neotic/helm/utils';
-import type { ClassValue } from 'clsx';
+import type { ClassValue } from 'cn';
 import { HlmSidebarService, type SidebarVariant } from './hlm-sidebar.service';
 import { injectHlmSidebarConfig } from './hlm-sidebar.token';
 
 @Component({
 	selector: 'hlm-sidebar',
+	exportAs: 'hlmSidebar',
 	imports: [NgTemplateOutlet, HlmSheetImports],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
@@ -38,6 +39,10 @@ import { injectHlmSidebarConfig } from './hlm-sidebar.token';
 					class="bg-sidebar text-sidebar-foreground h-svh w-(--sidebar-width) p-0 [&>button]:hidden"
 					[style.--sidebar-width]="sidebarWidthMobile()"
 				>
+					<hlm-sheet-header class="sr-only">
+						<h2 hlmSheetTitle>{{ srOnlySheetTitle() }}</h2>
+						<p hlmSheetDescription>{{ srOnlySheetDescription() }}</p>
+					</hlm-sheet-header>
 					<div class="flex h-full w-full flex-col">
 						<ng-container *ngTemplateOutlet="contentContainer" />
 					</div>
@@ -62,6 +67,9 @@ export class HlmSidebar {
 	public readonly side = input<'left' | 'right'>('left');
 	public readonly variant = input<SidebarVariant>(this._sidebarService.variant());
 	public readonly collapsible = input<'offcanvas' | 'icon' | 'none'>('offcanvas');
+
+	public readonly srOnlySheetTitle = input<string>('Sidebar');
+	public readonly srOnlySheetDescription = input<string>('Displays the mobile sidebar.');
 
 	protected readonly _sidebarGapComputedClass = computed(() =>
 		hlm(

@@ -4,6 +4,7 @@ import { classes } from '@neotic/helm/utils';
 
 @Component({
 	selector: 'hlm-field-separator',
+	exportAs: 'hlmFieldSeparator',
 	imports: [HlmSeparator],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: { 'data-slot': 'field-separator' },

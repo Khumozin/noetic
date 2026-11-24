@@ -23,6 +23,11 @@ export type FieldGroupType = BuiltInFieldGroupType | (string & {});
 
 export type BuiltInFieldType =
   | 'text-block'
+  | 'heading'
+  | 'paragraph'
+  | 'list'
+  | 'inline-code'
+  | 'typography'
   | 'text'
   | 'textarea'
   | 'number'

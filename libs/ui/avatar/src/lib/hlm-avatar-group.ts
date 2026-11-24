@@ -3,6 +3,7 @@ import { classes } from '@neotic/helm/utils';
 
 @Directive({
 	selector: '[hlmAvatarGroup],hlm-avatar-group',
+	exportAs: 'hlmAvatarGroup',
 	host: {
 		'data-slot': 'avatar-group',
 	},

@@ -18,7 +18,12 @@ function makeDefinition(type: string, label = type): FieldTypeDefinition {
 }
 
 const BUILT_IN_TYPES = [
+  'heading',
+  'paragraph',
   'text-block',
+  'typography',
+  'list',
+  'inline-code',
   'text',
   'textarea',
   'number',
@@ -137,7 +142,14 @@ describe('FieldTypesService', () => {
 
       expect(keys('button')).toEqual(['button', 'submit', 'reset']);
       expect(keys('datetime')).toEqual(['date']);
-      expect(keys('typography')).toEqual(['text-block']);
+      expect(keys('typography')).toEqual([
+        'heading',
+        'paragraph',
+        'text-block',
+        'typography',
+        'list',
+        'inline-code',
+      ]);
       expect(keys('selection')).toEqual(
         expect.arrayContaining(['checkbox', 'select', 'radio', 'switch']),
       );

@@ -3,6 +3,7 @@ import { classes } from '@neotic/helm/utils';
 
 @Directive({
 	selector: '[hlmBreadcrumbList]',
+	exportAs: 'hlmBreadcrumbList',
 	host: {
 		'data-slot': 'breadcrumb-list',
 	},
