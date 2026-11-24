@@ -19,7 +19,7 @@ export class PagesService {
     this._activePageId.set(id);
   }
 
-  addPage(page: Partial<AppPage>): string {
+  addPage(page?: Partial<AppPage>): string {
     const id = crypto.randomUUID();
     const newPage = {
       name: 'New Page',
