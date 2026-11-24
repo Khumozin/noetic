@@ -71,7 +71,8 @@ import { AppService } from '../../../../shared/services/app-service';
                   {{ app.metadata.name }}
                 </span>
                 <span hlmItemDescription class="truncate text-xs">
-                  v{{ app.metadata.version }}
+                  v{{ app.metadata.version }} · {{ app.pages.length }}
+                  {{ app.pages.length === 1 ? 'Page' : 'Pages' }}
                 </span>
               </button>
               @if (_appService.apps().length > 1) {

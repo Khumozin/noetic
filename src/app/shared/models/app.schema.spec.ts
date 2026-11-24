@@ -106,7 +106,7 @@ describe('storedAppsSchema', () => {
     expect(result[0].pages).toEqual([]);
   });
 
-  it('should keep pages, with title optional', () => {
+  it('should keep pages, defaulting a missing title', () => {
     const result = storedAppsSchema.parse([
       {
         ...stored({ name: 'A', slug: 'a', prefix: 'app', version: '1.0.0' })[0],
@@ -118,7 +118,7 @@ describe('storedAppsSchema', () => {
     ]);
 
     expect(result[0].pages).toEqual([
-      { id: 'p1', name: 'One', slug: 'one', type: 'form' },
+      { id: 'p1', name: 'One', slug: 'one', type: 'form', title: '' },
       { id: 'p2', name: 'Two', slug: 'two', type: 'table', title: 'T' },
     ]);
   });
@@ -168,10 +168,18 @@ describe('storedAppsSchema', () => {
 });
 
 describe('appPageSchema', () => {
-  const page = { id: 'p', name: 'Page', slug: 'page', type: 'form' };
+  const page = {
+    id: 'p',
+    name: 'Page',
+    slug: 'page',
+    type: 'form',
+    title: '',
+  };
 
-  it('should accept a page without a title', () => {
-    expect(appPageSchema.safeParse(page).success).toBe(true);
+  it('should require a title (use storedPageSchema to default a missing one)', () => {
+    const withoutTitle: Partial<typeof page> = { ...page };
+    delete withoutTitle.title;
+    expect(appPageSchema.safeParse(withoutTitle).success).toBe(false);
   });
 
   it.each(['form', 'table', 'custom'])('should accept type %s', type => {

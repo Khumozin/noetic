@@ -25,6 +25,7 @@ export class PagesService {
       name: 'New Page',
       slug: 'new-page',
       type: 'form',
+      title: '',
       ...page,
       id,
     } satisfies AppPage;

@@ -68,7 +68,7 @@ import { PagesService } from '../../../../shared/services/pages-service';
                 [attr.aria-current]="isActive(page.id) ? 'true' : null"
                 [routerLink]="[
                   './',
-                  { outlets: { content: ['metadata', page.id] } },
+                  { outlets: { content: ['detail', page.id] } },
                 ]"
                 (click)="_pageService.selectPage(page.id)">
                 <span hlmItemTitle class="truncate">

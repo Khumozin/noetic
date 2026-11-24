@@ -23,7 +23,7 @@ describe('PagesList', () => {
       imports: [PagesList],
       providers: [
         provideRouter([
-          { path: 'metadata/:id', outlet: 'content', component: MetadataStub },
+          { path: 'detail/:id', outlet: 'content', component: MetadataStub },
         ]),
       ],
     }).compileComponents();
@@ -144,7 +144,7 @@ describe('PagesList', () => {
     expect(service.activePage()?.id).toBe(first);
   });
 
-  it('should navigate to the metadata content outlet on select', async () => {
+  it('should navigate to the detail content outlet on select', async () => {
     const router = TestBed.inject(Router);
     const id = service.addPage({ name: 'One' });
     await fixture.whenStable();
@@ -152,7 +152,7 @@ describe('PagesList', () => {
     selectButtons()[0].click();
     await fixture.whenStable();
 
-    expect(router.url).toContain(`(content:metadata/${id})`);
+    expect(router.url).toContain(`(content:detail/${id})`);
   });
 
   it('should hide decorative icons from assistive tech', async () => {
