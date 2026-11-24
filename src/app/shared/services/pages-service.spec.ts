@@ -112,7 +112,7 @@ describe('PagesService', () => {
       const id = service.addPage({});
 
       expect(pages()).toEqual([
-        { id, name: 'New Page', slug: 'new-page', type: 'form' },
+        { id, name: 'New Page', slug: 'new-page', type: 'form', title: '' },
       ]);
     });
 
@@ -128,6 +128,7 @@ describe('PagesService', () => {
         name: 'Users',
         slug: 'users',
         type: 'table',
+        title: '',
       });
     });
 

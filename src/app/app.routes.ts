@@ -11,7 +11,7 @@ export const routes: Routes = [
       },
       {
         path: 'pages',
-        loadComponent: () => import('./features/pages/pages'),
+        loadChildren: () => import('./features/pages/pages.routes'),
       },
     ],
   },

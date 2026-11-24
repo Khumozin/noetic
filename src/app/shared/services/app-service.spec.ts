@@ -122,7 +122,9 @@ describe('AppService', () => {
 
     it('should load stored pages', () => {
       const app = makeApp('a');
-      app.pages = [{ id: 'p1', name: 'Home', slug: 'home', type: 'form' }];
+      app.pages = [
+        { id: 'p1', name: 'Home', slug: 'home', type: 'form', title: '' },
+      ];
       localStorage.setItem(APPS_KEY, JSON.stringify([app]));
 
       service = createService();
