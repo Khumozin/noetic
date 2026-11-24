@@ -15,6 +15,7 @@ import { classes } from '@neotic/helm/utils';
 
 @Component({
 	selector: 'hlm-field-error',
+	exportAs: 'hlmFieldError',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		role: 'alert',

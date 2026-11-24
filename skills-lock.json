@@ -1,11 +1,12 @@
 {
-  "version": 1,
+  "version": 2,
   "skills": {
     "spartan": {
       "source": "spartan-ng/spartan",
+      "commit": "0a14a52e79ebc4b5b1a45ac55041912fcd80113d",
       "sourceType": "github",
       "skillPath": "skills/spartan/SKILL.md",
-      "computedHash": "630526f27a77606e74122b1a3fd6fb41be2f7d5b63d13df9d7af3732c562edab"
+      "computedHash": "9f2ff4478e54ddd6646a2d7900d3a1435b662584e53b5a9ff5128281d47dc932"
     }
   }
 }

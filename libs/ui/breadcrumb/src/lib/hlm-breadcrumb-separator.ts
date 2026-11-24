@@ -6,6 +6,7 @@ import { classes } from '@neotic/helm/utils';
 @Component({
 	// eslint-disable-next-line @angular-eslint/component-selector
 	selector: '[hlmBreadcrumbSeparator]',
+	exportAs: 'hlmBreadcrumbSeparator',
 	imports: [NgIcon],
 	providers: [provideIcons({ lucideChevronRight })],
 	changeDetection: ChangeDetectionStrategy.OnPush,

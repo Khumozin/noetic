@@ -3,6 +3,7 @@ import { classes } from '@neotic/helm/utils';
 
 @Directive({
 	selector: '[hlmSkeleton],hlm-skeleton',
+	exportAs: 'hlmSkeleton',
 	host: {
 		'data-slot': 'skeleton',
 	},

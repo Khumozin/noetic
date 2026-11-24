@@ -5,6 +5,7 @@ import { classes } from '@neotic/helm/utils';
 
 @Directive({
 	selector: '[hlmItemSeparator],hlm-item-separator',
+	exportAs: 'hlmItemSeparator',
 	hostDirectives: [{ directive: BrnSeparator, inputs: ['orientation'] }],
 	host: { 'data-slot': 'item-separator' },
 })

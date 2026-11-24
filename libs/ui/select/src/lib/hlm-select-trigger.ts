@@ -5,10 +5,11 @@ import { lucideChevronDown } from '@ng-icons/lucide';
 import { BrnFieldControlDescribedBy } from '@spartan-ng/brain/field';
 import { BrnSelectTrigger } from '@spartan-ng/brain/select';
 import { hlm } from '@neotic/helm/utils';
-import type { ClassValue } from 'clsx';
+import type { ClassValue } from 'cn';
 
 @Component({
 	selector: 'hlm-select-trigger',
+	exportAs: 'hlmSelectTrigger',
 	imports: [NgIcon, BrnSelectTrigger, BrnFieldControlDescribedBy],
 	providers: [provideIcons({ lucideChevronDown })],
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -19,6 +20,7 @@ import type { ClassValue } from 'clsx';
 			[forceInvalid]="forceInvalid()"
 			[id]="buttonId()"
 			[class]="_computedClass()"
+			[aria-invalid]="ariaInvalidInput()"
 			[attr.data-size]="size()"
 			data-slot="select-trigger"
 		>
@@ -44,4 +46,10 @@ export class HlmSelectTrigger {
 
 	/** Whether to force the trigger into an invalid state. */
 	public readonly forceInvalid = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
+
+	/** Manual override for aria-invalid. When not set, auto-detects from the parent autocomplete error state. */
+	public readonly ariaInvalidInput = input<boolean | undefined, BooleanInput>(undefined, {
+		transform: (v: BooleanInput) => (v === '' || v === undefined ? undefined : booleanAttribute(v)),
+		alias: 'aria-invalid',
+	});
 }

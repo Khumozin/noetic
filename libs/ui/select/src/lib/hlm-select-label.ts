@@ -4,6 +4,7 @@ import { classes } from '@neotic/helm/utils';
 
 @Directive({
 	selector: '[hlmSelectLabel],hlm-select-label',
+	exportAs: 'hlmSelectLabel',
 	hostDirectives: [{ directive: BrnSelectLabel, inputs: ['id'] }],
 	host: { 'data-slot': 'select-label' },
 })

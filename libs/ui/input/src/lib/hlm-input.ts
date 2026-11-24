@@ -5,7 +5,11 @@ import { classes } from '@neotic/helm/utils';
 
 @Directive({
 	selector: '[hlmInput]',
-	hostDirectives: [{ directive: BrnInput, inputs: ['id', 'forceInvalid'] }, BrnFieldControlDescribedBy],
+	exportAs: 'hlmInput',
+	hostDirectives: [
+		{ directive: BrnInput, inputs: ['id', 'forceInvalid', 'aria-invalid'] },
+		{ directive: BrnFieldControlDescribedBy, inputs: ['aria-describedby'] },
+	],
 	host: { 'data-slot': 'input' },
 })
 export class HlmInput {

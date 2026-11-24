@@ -3,6 +3,7 @@ import { classes } from '@neotic/helm/utils';
 
 @Directive({
 	selector: 'li[hlmSidebarMenuSubItem]',
+	exportAs: 'hlmSidebarMenuSubItem',
 	host: {
 		'data-slot': 'sidebar-menu-sub-item',
 		'data-sidebar': 'menu-sub-item',

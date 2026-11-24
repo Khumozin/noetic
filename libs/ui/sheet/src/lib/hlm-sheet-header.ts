@@ -3,6 +3,7 @@ import { classes } from '@neotic/helm/utils';
 
 @Directive({
 	selector: '[hlmSheetHeader],hlm-sheet-header',
+	exportAs: 'hlmSheetHeader',
 	host: { 'data-slot': 'sheet-header' },
 })
 export class HlmSheetHeader {

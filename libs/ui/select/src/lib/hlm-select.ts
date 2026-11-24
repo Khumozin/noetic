@@ -5,6 +5,7 @@ import { classes } from '@neotic/helm/utils';
 
 @Directive({
 	selector: '[hlmSelect],hlm-select',
+	exportAs: 'hlmSelect',
 	providers: [
 		provideBrnPopoverConfig({
 			align: 'start',

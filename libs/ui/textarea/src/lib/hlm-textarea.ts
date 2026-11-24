@@ -5,7 +5,11 @@ import { classes } from '@neotic/helm/utils';
 
 @Directive({
 	selector: '[hlmTextarea]',
-	hostDirectives: [{ directive: BrnTextarea, inputs: ['id', 'forceInvalid'] }, BrnFieldControlDescribedBy],
+	exportAs: 'hlmTextarea',
+	hostDirectives: [
+		{ directive: BrnTextarea, inputs: ['id', 'forceInvalid', 'aria-invalid'] },
+		{ directive: BrnFieldControlDescribedBy, inputs: ['aria-describedby'] },
+	],
 	host: { 'data-slot': 'textarea' },
 })
 export class HlmTextarea {

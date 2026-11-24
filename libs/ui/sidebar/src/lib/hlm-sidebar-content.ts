@@ -3,6 +3,7 @@ import { classes } from '@neotic/helm/utils';
 
 @Directive({
 	selector: '[hlmSidebarContent],hlm-sidebar-content',
+	exportAs: 'hlmSidebarContent',
 	host: {
 		'data-slot': 'sidebar-content',
 		'data-sidebar': 'content',

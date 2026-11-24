@@ -11,8 +11,12 @@ import {
   DATE_PICKER_FIELD_DEFINITION,
   EMAIL_FIELD_DEFINITION,
   FILEUPLOAD_FIELD_DEFINITION,
+  HEADING_FIELD_DEFINITION,
+  INLINE_CODE_FIELD_DEFINITION,
+  LIST_FIELD_DEFINITION,
   NUMBER_FIELD_DEFINITION,
   OTP_FIELD_DEFINITION,
+  PARAGRAPH_FIELD_DEFINITION,
   PASSWORD_FIELD_DEFINITION,
   RADIO_GROUP_FIELD_DEFINITION,
   RESET_FIELD_DEFINITION,
@@ -23,6 +27,7 @@ import {
   TEXT_BLOCK_FIELD_DEFINITION,
   TEXT_FIELD_DEFINITION,
   TEXTAREA_FIELD_DEFINITION,
+  TYPOGRAPHY_FIELD_DEFINITION,
   URL_FIELD_DEFINITION,
 } from '../models/field-definition';
 import { FIELD_PLUGIN_TOKEN, FieldPlugin } from '../models/field-plugin.token';
@@ -73,7 +78,14 @@ const BUTTON_FIELDS_GROUP: FieldGroupDefinition = {
 const TYPOGRAPHY_FIELDS_GROUP: FieldGroupDefinition = {
   label: 'Typography',
   type: 'typography',
-  fieldTypeDefinitions: new Map([['text-block', TEXT_BLOCK_FIELD_DEFINITION]]),
+  fieldTypeDefinitions: new Map([
+    ['heading', HEADING_FIELD_DEFINITION],
+    ['paragraph', PARAGRAPH_FIELD_DEFINITION],
+    ['text-block', TEXT_BLOCK_FIELD_DEFINITION],
+    ['typography', TYPOGRAPHY_FIELD_DEFINITION],
+    ['list', LIST_FIELD_DEFINITION],
+    ['inline-code', INLINE_CODE_FIELD_DEFINITION],
+  ]),
 };
 
 // plugins add types to groups, so each service needs its own copy; sharing the
@@ -96,7 +108,12 @@ export class FieldTypesService {
   ]);
 
   fieldTypes = new Map<FieldType, FieldTypeDefinition>([
+    ['heading', HEADING_FIELD_DEFINITION],
+    ['paragraph', PARAGRAPH_FIELD_DEFINITION],
     ['text-block', TEXT_BLOCK_FIELD_DEFINITION],
+    ['typography', TYPOGRAPHY_FIELD_DEFINITION],
+    ['list', LIST_FIELD_DEFINITION],
+    ['inline-code', INLINE_CODE_FIELD_DEFINITION],
     ['text', TEXT_FIELD_DEFINITION],
     ['textarea', TEXTAREA_FIELD_DEFINITION],
     ['number', NUMBER_FIELD_DEFINITION],

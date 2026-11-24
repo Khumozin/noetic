@@ -1,11 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
+import { HlmButtonImports } from '@neotic/helm/button';
+import { FormField } from '../../models/field';
 
 @Component({
-  imports: [],
+  imports: [HlmButtonImports],
   selector: 'app-button-field',
   styles: ``,
   template: `
-    <p>button-field works!</p>
+    <button
+      hlmBtn
+      class="w-full"
+      [variant]="field().variant"
+      [type]="field().type">
+      {{ field().content }}
+    </button>
   `,
 })
-export class ButtonField {}
+export class ButtonField {
+  field = input.required<FormField>();
+}
