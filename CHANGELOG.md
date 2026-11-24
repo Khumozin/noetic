@@ -1,3 +1,9 @@
+# [1.1.0-staging.4](https://github.com/Khumozin/noetic/compare/v1.1.0-staging.3...v1.1.0-staging.4) (2026-11-24)
+
+### Features
+
+- add pages list and settings ([#11](https://github.com/Khumozin/noetic/issues/11)) ([6c21217](https://github.com/Khumozin/noetic/commit/6c21217f5f9660c1a9427a4c25697c18c0e2c8ef))
+
 # [1.1.0-staging.3](https://github.com/Khumozin/noetic/compare/v1.1.0-staging.2...v1.1.0-staging.3) (2026-09-26)
 
 ### Features
